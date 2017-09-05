@@ -1,0 +1,52 @@
+html, body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+button {
+    font-family: 'Abel', sans-serif;
+    font-weight: bold;
+}
+
+body {
+    background: url('assets/landscape.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center; 
+}
+
+.bar {
+    height: 50px;
+    background-color: rgb(12, 24, 72);
+    .logo {
+        a {
+            text-decoration: none;
+            color: white;   
+        }
+         
+        margin: 8px auto;
+        width: 1024px;
+        img {
+            width: 35px;
+            height: 35px;
+        }
+        strong {
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            position: relative;
+            top: 2px;
+        }
+        small {
+            color: white;
+            font-weight: 400;
+            font-size: 12px;
+            position: relative;
+            top: 2px;
+            a{
+                text-decoration: underline;
+            }
+        }
+    }
+}
+

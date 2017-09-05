@@ -1,0 +1,29 @@
+<div class="container" (scroll)="onScroll($event)">
+    <h1>Pokédex</h1>
+    
+    <app-loader *ngIf="isLoading"
+        [total] = "total"
+        [progress]="progress"
+    >       
+    </app-loader>
+
+    <div class="row cards" *ngIf="!isLoading">
+        <div class="col-3" *ngFor="let pokemon of pokemons">
+            <div class="card" routerLink="/details/{{pokemon.id}}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        #{{'00' + pokemon.id | slice:-3}} <strong>{{pokemon.name}}</strong>
+                    </h5>
+                    <img class="card-img img-fluid mx-auto d-block" src="{{pokemon.sprite}}" alt="{{pokemon.name}}" />
+                    
+                    <div class="types">
+                        <div *ngFor="let type of pokemon.types" class="type {{type.name}}">{{type.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary btn-lg" *ngIf="!isLoadingMore" (click)="loadMore()">Load more Pokémon</button>
+    </div>
+
+</div>
