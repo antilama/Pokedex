@@ -1,9 +1,5 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
-
-import 'rxjs/add/operator/throttle';
 
 import { PokedexService } from '../services/pokedex.service';
 import { Pokemon } from '../types/pokemon';
@@ -22,7 +18,7 @@ export class GridComponent implements OnInit {
 
     // Loader
     isLoading: Boolean = true;
-    isLoadingMore: Boolean = false;
+    inifiniteScrollOn: Boolean = false;
     progress = 0;
     total = 12;
 
@@ -32,14 +28,16 @@ export class GridComponent implements OnInit {
 
     @HostListener('window:scroll', ['$event'])
     onScroll(e: Event): void {
-        if (!this.isLoading && this.isLoadingMore) {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+        if (!this.isLoading && this.inifiniteScrollOn) {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 30) {
                 this.loadMore();
             }
         }
     }
 
     ngOnInit(): void {
+        window.scrollTo(0, 0);
+
         this.pokedex.getAPICount()
             .then(result => {
                 // API returns 3 empty IDS
@@ -51,13 +49,13 @@ export class GridComponent implements OnInit {
     }
 
     loadMore(): void {
-        this.isLoadingMore = true;
+        this.progress = 0;
+        this.inifiniteScrollOn = true;
         this.loadRandomSet(12);
     }
 
     loadRandomSet(setSize: number): void {
         this.total = setSize;
-        this.progress = 0;
 
         for (let i = 0; i < setSize; i++) {
             // overflow prevention
@@ -65,11 +63,11 @@ export class GridComponent implements OnInit {
 
             ((id) => {
                 this.pokedex.getPokemonByID(this.randomIDsList[id])
-                .then(pokemon => {
-                    this.pokemons.push(pokemon as Pokemon);
-                    this.progress++;
-                    this.isLoading = (this.progress >= setSize) ? false : this.isLoading;
-                });
+                    .then(pokemon => {
+                        this.pokemons.push(pokemon as Pokemon);
+                        this.progress++;
+                        this.isLoading = (this.progress >= setSize) ? false : this.isLoading;
+                    });
             })(this.lastPokemon);
 
             this.lastPokemon++;
@@ -97,14 +95,7 @@ export class GridComponent implements OnInit {
         return idset;
     }
 
-    // generateRandomSet(length: number, poolsize: number): Array<number> {
-    //     const idset: Array<number> = [];
-
-    //     for (let i = 0; i < length; i++) {
-    //         idset[i] = Math.floor(Math.random() * poolsize) + 1;
-    //     }
-
-    //     console.log(idset);
-    //     return idset;
-    // }
+    passPokemon(index: number): void {
+        this.pokedex.pokemon = this.pokemons[index];
+    }
 }

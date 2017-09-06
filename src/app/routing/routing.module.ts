@@ -10,8 +10,12 @@ const routes: Routes = [
         component: DetailsComponent
     },
     {
-        path: '', component: GridComponent
+        path: 'grid',
+        component: GridComponent
     },
+    {
+        path: '', redirectTo: 'grid', pathMatch: 'full'
+    }
 ];
 
 @NgModule({

@@ -1,3 +1,131 @@
-<p>
-  details works!
-</p>
+<div class="container">
+    <app-loader *ngIf="isLoading">
+    </app-loader>
+
+    <div *ngIf="!isLoading" [ngClass]="{'visible' : !isLoading}">
+        <nav class="row">
+            <div class="col-6">
+                <a (click)="changePage('prev')">
+                    <h5><span><</span> #{{pokemon.id - 1}} <strong>{{pokemon.name}}</strong></h5>
+                </a>
+            </div>
+            <div class="col-6">
+                <a (click)="changePage('next')">
+                    <h5>#{{pokemon.id - (-1)}} <strong>{{pokemon.name}}</strong><span>></span></h5>
+                </a>
+            </div>
+        </nav>
+
+        <div class="row title">
+            <div class="col">
+                <h2>#{{'00' + pokemon.id | slice:-3}} <strong>{{pokemon.name}}</strong></h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-7">
+                <div class="illustration">
+                    <img src="{{pokemon.sprite_large}}" alt="{{pokemon.name}}" />
+                    <div class="types">
+                        <div class="type {{type['name']}}" *ngFor="let type of pokemon.types">{{type['name']}}</div>
+                    </div>
+                </div>
+                <p>Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem
+                    dupsum
+                </p>
+            </div>
+            <div class="col-5">
+                <div class="card info">
+                    <div class="row">
+                        <div class="col-5">
+                            <h5>Height</h5>
+                            <p>{{pokemon.height}} m</p>
+
+                            <h5>Weight</h5>
+                            <p>{{pokemon.weight}} kg</p>
+
+                            <h5>Gender</h5>
+                            <p>{{pokemon.gender}}</p>
+                        </div>
+                        <div class="col-7">
+                            <h5>Category</h5>
+                            <p>{{pokemon.category}}</p>
+
+                            <h5>Abilities</h5>
+                            <p *ngFor="let ability of pokemon.abilities">{{ability['name']}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card stats">
+                    <h4>Base Stats</h4>
+                    <div class="row">
+                        <div class="col">
+                            <div class="bg">
+                                <div class="value" [ngStyle]="{'height.px': pokemon.hp}"></div>
+                            </div>
+                            <h6>HP</h6>
+                        </div>
+
+                        <div class="col">
+                            <div class="bg">
+                                <div class="value" [ngStyle]="{'height.px': pokemon.attack}"></div>
+                            </div>
+                            <h6>Attack</h6>
+                        </div>
+
+                        <div class="col">
+                            <div class="bg">
+                                <div class="value" [ngStyle]="{'height.px': pokemon.defense}"></div>
+                            </div>
+                            <h6>Defense</h6>
+                        </div>
+
+                        <div class="col">
+                            <div class="bg">
+                                <div class="value" [ngStyle]="{'height.px': pokemon.special_attack}"></div>
+                            </div>
+                            <h6>Special Attack</h6>
+                        </div>
+
+                        <div class="col">
+                            <div class="bg">
+                                <div class="value" [ngStyle]="{'height.px': pokemon.special_defense}"></div>
+                            </div>
+                            <h6>Special Defense</h6>
+                        </div>
+
+                        <div class="col">
+                            <div class="bg">
+                                <div class="value" [ngStyle]="{'height.px': pokemon.speed}"></div>
+                            </div>
+                            <h6>Speed</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row moves">
+            <div class="col-12">
+                <h3>Moves</h3>
+            </div>
+            <div class="col-3 tutor">
+                <h5 class="move" *ngFor="let move of tutorMoves">{{move['name']}}</h5>
+            </div>
+            <div class="col-3 egg">
+                <h5 class="move" *ngFor="let move of eggMoves">{{move['name']}}</h5>
+            </div>
+            <div class="col-3 machine">
+                <h5 class="move" *ngFor="let move of machineMoves">{{move['name']}}</h5>
+            </div>
+            <div class="col-3 level">
+                <h5 class="move" *ngFor="let move of levelupMoves">{{move['name']}}</h5>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary btn-lg" routerLink="/">Explore more Pokémon</button>
+    </div>
+
+
+</div>
