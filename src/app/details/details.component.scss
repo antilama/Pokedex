@@ -1,6 +1,6 @@
 div.container {
     min-height: 900px;
-    width: 1024px;
+    max-width: 1024px;
     padding: 0px 32px;
     background-color: white;
     div.details {
@@ -80,17 +80,14 @@ div.title {
 }
 
 div.illustration {
-    
     position: relative;
     background-color: #f2f1f1;
     border-radius: 25px;
-    height: 496px;
-    
     img {
         position: relative;
         left: 9%;
-        top: 10px;
         width: 78%;
+        margin-bottom: 50px;
     }
     div.types {
         font-family: 'Abel', sans-serif;

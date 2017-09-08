@@ -1,7 +1,7 @@
 div.container {
     position: relative;
     min-height: 1150px;
-    width: 1024px;
+    max-width: 1024px;
     padding: 54px 44px 0px 44px;
     background-color: white;
     .row.cards {
@@ -30,7 +30,7 @@ div.card {
     bottom: 0px;
     height: 238px;
     width: 216px;
-    margin-bottom: 60px;
+    margin: 0px auto 60px auto;
     background-color: #f2f1f1;
     border: 0;
     &.visible {

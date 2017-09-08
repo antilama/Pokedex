@@ -23,7 +23,7 @@
         </div>
 
         <div class="row">
-            <div class="col-7">
+            <div class="col-lg-7 col-md-5 col-sm-12 col-12">
                 <div class="illustration">
                     <img src="{{pokemon.sprite_large}}" alt="{{pokemon.name}}" />
                     <div class="types">
@@ -33,7 +33,7 @@
                 <p class="gray" *ngIf="!pokemon.description">Erasotzaileek gidatzen dute botere psikikoa unleashing. Telepatia erabil dezakete besteekin hitz egiteko.</p>
                 <p *ngIf="pokemon.description">{{pokemon.description}}</p>
             </div>
-            <div class="col-5">
+            <div class="col-lg-5 col-md-7 col-sm-12 col-12">
                 <div class="card info">
                     <div class="row">
                         <div class="col-5">
@@ -109,16 +109,16 @@
             <div class="col-12">
                 <h3>Moves</h3>
             </div>
-            <div class="col-3 tutor">
+            <div class="col-md-3 col-sm-6 col-12 tutor">
                 <h5 class="move" *ngFor="let move of tutorMoves | slice:0:5">{{move['name']}}</h5>
             </div>
-            <div class="col-3 egg">
+            <div class="col-md-3 col-sm-6 col-12 egg">
                 <h5 class="move" *ngFor="let move of eggMoves | slice:0:5">{{move['name']}}</h5>
             </div>
-            <div class="col-3 machine">
+            <div class="col-md-3 col-sm-6 col-12 machine">
                 <h5 class="move" *ngFor="let move of machineMoves | slice:0:5">{{move['name']}}</h5>
             </div>
-            <div class="col-3 level">
+            <div class="col-md-3 col-sm-6 col-12 level">
                 <h5 class="move" *ngFor="let move of levelupMoves | slice:0:5">{{move['name']}}</h5>
             </div>
         </div>
