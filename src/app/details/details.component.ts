@@ -11,11 +11,12 @@ import { Pokemon } from '../types/pokemon';
 })
 export class DetailsComponent implements OnInit {
     isLoading: Boolean = true;
-
-    prevPokemon: number;
-    nextPokemon: number;
+    APICount = 718;
 
     pokemon: Pokemon;
+
+    prevPokemon: Pokemon = new Pokemon;
+    nextPokemon: Pokemon = new Pokemon;
 
     tutorMoves: Array<object> = [];
     levelupMoves: Array<object> = [];
@@ -30,7 +31,13 @@ export class DetailsComponent implements OnInit {
 
     ngOnInit() {
         window.scrollTo(0, 0);
+        this.nextPokemon.name = undefined;
+        this.prevPokemon.name = undefined;
 
+        this.loadDetails();
+    }
+
+    loadDetails() {
         if (this.pokedex.pokemon === undefined) {
             this.activeroute.params.subscribe((params) => {
                 this.pokedex.getPokemonByID(params.id).then(
@@ -38,18 +45,32 @@ export class DetailsComponent implements OnInit {
                 ).then(() => {
                     this.pokemon = this.validatePokemon();
                     this.isLoading = false;
+                    this.preloadNeighborns(this.pokemon.id);
                 });
             });
         } else {
             this.pokemon = this.pokedex.pokemon;
             this.pokemon = this.validatePokemon();
             this.isLoading = false;
+            this.preloadNeighborns(this.pokemon.id);
         }
+    }
+
+    preloadNeighborns(currID: number): void {
+        let nextID = currID, prevID = currID;
+        nextID = (nextID >= this.APICount) ? 1 : nextID - (-1);
+        prevID = (prevID <= 1) ? this.APICount : prevID - 1;
+
+        this.pokedex.getPokemonByID(prevID).then(
+            result => this.prevPokemon = result as Pokemon
+        );
+        this.pokedex.getPokemonByID(nextID).then(
+            result => this.nextPokemon = result as Pokemon
+        );
     }
 
     validatePokemon(): Pokemon {
         const correctPokemon = this.pokemon;
-
         function normalize(value: number): number {
             return Math.round((value / 180) * 116);
         }
@@ -63,6 +84,10 @@ export class DetailsComponent implements OnInit {
 
         correctPokemon.gender = correctPokemon.gender || 'F / M';
         correctPokemon.category = correctPokemon.category || '-';
+
+        this.pokedex.getDescription(correctPokemon['descriptionURL']).then(
+            result => correctPokemon['description'] = result['description']
+        );
 
         correctPokemon.moves.forEach(element => {
             switch (element['learn_type']) {
@@ -92,18 +117,19 @@ export class DetailsComponent implements OnInit {
     }
 
     changePage(dir: string): void {
+        let newID: number = this.pokemon.id;
+
+        this.pokedex.pokemon = undefined;
         this.isLoading = true;
+
         if (dir === 'next') {
-            let nextID = this.pokemon.id;
-            nextID++;
-
-            this.router.navigate(['/details/', nextID]);
+            newID = (newID >= this.APICount) ? 1 : newID - (-1);
         } else {
-            let prevID = this.pokemon.id;
-            prevID--;
-
-            this.router.navigate(['/details/', prevID]);
+            newID = (newID <= 1) ? this.APICount : newID - 1;
         }
+
+        this.router.navigate(['/details/', newID]);
+        this.loadDetails();
     }
 
 }

@@ -1,6 +1,8 @@
 export class Pokemon {
     name: string;
     id: number;
+    description: string;
+    descriptionURL: string;
     sprite_small: string;
     sprite_large: string;
     types: Array<object>;

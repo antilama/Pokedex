@@ -3,11 +3,28 @@ div.container {
     width: 1024px;
     padding: 0px 32px;
     background-color: white;
-    div {
+    div.details {
+        opacity: 0;
         &.visible{
-            animation: fadein .5s;
+            animation: fadein .5s ease 100ms;
             animation-fill-mode: forwards;
             }
+    }
+    button {
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        border-radius: 8px;
+        font-size: 14px;
+        padding: 15px;
+        background-color: #e85e0e;
+        margin: 37px auto 54px auto;
+        display: block;
+        border: none;
+        transition: .5s background-color;
+        &:hover {
+            background-color: #FF985D;
+        }
     }
 }
 
@@ -18,14 +35,19 @@ margin: 0px -32px;
     div a {
         display: block;
         background-color: #606c78;
-        padding: 20px;
+        padding: 20px 40px;
         color: white;
         transition: background-color .5s;
         &:hover {
             background-color: #4a90e2;
         }
         h5{
+            opacity: 0;
             font-weight: 300;
+            &.visible {
+                animation: fadein .5s;
+                animation-fill-mode: forwards;
+            }
             strong {
                 font-weight: 700;
             }
@@ -58,10 +80,12 @@ div.title {
 }
 
 div.illustration {
+    
     position: relative;
     background-color: #f2f1f1;
     border-radius: 25px;
     height: 496px;
+    
     img {
         position: relative;
         left: 9%;
@@ -92,6 +116,9 @@ div.illustration {
             border-top-left-radius: 25px;
             border-bottom-right-radius: 25px;
          }
+    }
+    &+p.gray {
+        color: #DCDCDC;
     }
 
     &+p{

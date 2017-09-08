@@ -49,6 +49,7 @@ export class PokedexService {
                 return {
                     name: data.name,
                     id: realID,
+                    descriptionURL: data.descriptions[0]['resource_uri'],
                     sprite_small: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/' + realID + '.png',
                     sprite_large: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + realID + '.png',
                     types: data.types,
@@ -69,6 +70,13 @@ export class PokedexService {
                     moves: data.moves
                 };
             })
+            .catch(this.handleError);
+    }
+
+    getDescription(url: string): Promise<object> {
+        return this.http.get('http://pokeapi.co/' + url)
+            .toPromise()
+            .then(response => response.json())
             .catch(this.handleError);
     }
 

@@ -2,16 +2,16 @@
     <app-loader *ngIf="isLoading">
     </app-loader>
 
-    <div *ngIf="!isLoading" [ngClass]="{'visible' : !isLoading}">
+    <div *ngIf="!isLoading" class="details" [ngClass]="{'visible' : !isLoading}">
         <nav class="row">
             <div class="col-6">
                 <a (click)="changePage('prev')">
-                    <h5><span><</span> #{{pokemon.id - 1}} <strong>{{pokemon.name}}</strong></h5>
+                    <span class="float-left">&#9664;</span><h5 class="text-right" [ngClass]="{'visible' : pokemon.name != prevPokemon.name}"> #{{prevPokemon.id}} <strong>{{prevPokemon.name}}</strong></h5>
                 </a>
             </div>
             <div class="col-6">
                 <a (click)="changePage('next')">
-                    <h5>#{{pokemon.id - (-1)}} <strong>{{pokemon.name}}</strong><span>></span></h5>
+                    <span class="float-right">&#9654;</span><h5 class="text-left" [ngClass]="{'visible' : pokemon.name != nextPokemon.name}"><strong>{{nextPokemon.name}}</strong> #{{nextPokemon.id}}</h5>
                 </a>
             </div>
         </nav>
@@ -30,9 +30,8 @@
                         <div class="type {{type['name']}}" *ngFor="let type of pokemon.types">{{type['name']}}</div>
                     </div>
                 </div>
-                <p>Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem dupsum Lorem
-                    dupsum
-                </p>
+                <p class="gray" *ngIf="!pokemon.description">Erasotzaileek gidatzen dute botere psikikoa unleashing. Telepatia erabil dezakete besteekin hitz egiteko.</p>
+                <p *ngIf="pokemon.description">{{pokemon.description}}</p>
             </div>
             <div class="col-5">
                 <div class="card info">
@@ -111,20 +110,25 @@
                 <h3>Moves</h3>
             </div>
             <div class="col-3 tutor">
-                <h5 class="move" *ngFor="let move of tutorMoves">{{move['name']}}</h5>
+                <h5 class="move" *ngFor="let move of tutorMoves | slice:0:5">{{move['name']}}</h5>
             </div>
             <div class="col-3 egg">
-                <h5 class="move" *ngFor="let move of eggMoves">{{move['name']}}</h5>
+                <h5 class="move" *ngFor="let move of eggMoves | slice:0:5">{{move['name']}}</h5>
             </div>
             <div class="col-3 machine">
-                <h5 class="move" *ngFor="let move of machineMoves">{{move['name']}}</h5>
+                <h5 class="move" *ngFor="let move of machineMoves | slice:0:5">{{move['name']}}</h5>
             </div>
             <div class="col-3 level">
-                <h5 class="move" *ngFor="let move of levelupMoves">{{move['name']}}</h5>
+                <h5 class="move" *ngFor="let move of levelupMoves | slice:0:5">{{move['name']}}</h5>
             </div>
         </div>
 
-        <button type="button" class="btn btn-primary btn-lg" routerLink="/">Explore more Pokémon</button>
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn" routerLink="/">Explore more Pokémon</button>
+            </div>
+        </div>
+
     </div>
 
 
