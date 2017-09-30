@@ -7,12 +7,12 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class PokedexService {
     pokemon: Pokemon;
-    private pokemonURL = 'http://pokeapi.co/api/v1';
+    private pokemonURL = 'https://pokeapi.co/api/v1';
 
     constructor(private http: Http) { }
 
     getAPICount(): Promise<object> {
-        const url = `http://pokeapi.co/api/v2/pokemon-species/?limit=0`;
+        const url = `https://pokeapi.co/api/v2/pokemon-species/?limit=0`;
         return this.http.get(url)
             .toPromise()
             .then(response => response.json().count)
@@ -74,7 +74,7 @@ export class PokedexService {
     }
 
     getDescription(url: string): Promise<object> {
-        return this.http.get('http://pokeapi.co/' + url)
+        return this.http.get('https://pokeapi.co/' + url)
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
